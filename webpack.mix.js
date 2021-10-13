@@ -29,4 +29,4 @@ mix.scripts([
 ], 'public/assets/admin/js/admin.js');
 
 mix.copy('resources/assets/admin/img', 'public/assets/admin/img');
-mix.copy('resources/assets/admin/plugins/fontawesome-free/webfonts', 'public/assets/admin/css/webfonts');
+mix.copy('resources/assets/admin/plugins/fontawesome-free/webfonts', 'public/assets/admin/webfonts');
