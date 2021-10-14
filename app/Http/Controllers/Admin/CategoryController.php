@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(2);
+        $categories = Category::paginate(20);
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -49,11 +49,12 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit($id)
     {
-        dd(__METHOD__);
+        $category = Category::find($id);
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**
@@ -61,11 +62,16 @@ class CategoryController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required',
+        ]);
+        $category = Category::find($id);
+        $category->update($request->all());
+        return redirect()->route('categories.index')->with('success', 'Изменения сохранены');
     }
 
     /**
