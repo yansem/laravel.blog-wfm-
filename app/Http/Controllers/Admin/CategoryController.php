@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -10,11 +11,12 @@ class CategoryController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        return view('admin.categories.index');
+        $categories = Category::paginate(2);
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -38,7 +40,6 @@ class CategoryController extends Controller
         //
     }
 
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -47,7 +48,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
@@ -70,6 +71,6 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd(__METHOD__);
     }
 }
