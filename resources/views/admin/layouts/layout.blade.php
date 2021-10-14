@@ -198,7 +198,19 @@
     </aside>
 
     <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                </div>
+            </div>
+
 @yield('content')
+    </div>
 <!-- /.content-wrapper -->
 
     <footer class="main-footer">
