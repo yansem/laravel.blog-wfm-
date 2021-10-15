@@ -50,10 +50,7 @@ class PostController extends Controller
             'thumbnail' => 'nullable|image',
         ]);
         $data = $request->all();
-        if ($request->hasFile('thumbnail')){
-            $folder = date("Y-m-d");
-            $data['thumbnail'] = $request->file('thumbnail')->store("images/{$folder}", 'public');
-        }
+        $data['thumbnail'] = Post::uploadImg($request);
         $post = Post::create($data);
         $post->tags()->sync($request->tags);
         return redirect()->route('posts.index')->with('success', 'Пост добавлен');
@@ -92,12 +89,7 @@ class PostController extends Controller
         ]);
         $post = Post::find($id);
         $data = $request->all();
-        if ($request->hasFile('thumbnail')){
-            Storage::disk('public')->delete($post->thumbnail);
-            $folder = date("Y-m-d");
-            $data['thumbnail'] = $request->file('thumbnail')->store("images/{$folder}", 'public');
-        }
-
+        $data['thumbnail'] = Post::uploadImg($request, $post->thumbnail);
         $post->tags()->sync($request->tags);
         $post->update($data);
         return redirect()->route('posts.index')->with('success', 'Изменения сохранены');

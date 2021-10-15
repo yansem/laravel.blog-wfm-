@@ -5,6 +5,8 @@ namespace App\Models;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class Post extends Model
 {
@@ -34,5 +36,17 @@ class Post extends Model
                 'source' => 'title'
             ]
         ];
+    }
+
+    public static function uploadImg(Request $request, $image=null)
+    {
+        if ($request->hasFile('thumbnail')){
+            if($image){
+                Storage::disk('public')->delete($image);
+            }
+            $folder = date("Y-m-d");
+            return $request->file('thumbnail')->store("images/{$folder}", 'public');
+        }
+        return null;
     }
 }
