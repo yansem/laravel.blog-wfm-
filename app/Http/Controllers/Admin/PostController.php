@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Post;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -68,7 +69,9 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::pluck('title', 'id');
+        $tags = Tag::pluck('title', 'id');
+        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -82,9 +85,21 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
+            'description' => 'required',
+            'content' => 'required',
+            'category_id' => 'required|integer',
+            'thumbnail' => 'nullable|image',
         ]);
         $post = Post::find($id);
-        $post->update($request->all());
+        $data = $request->all();
+        if ($request->hasFile('thumbnail')){
+            Storage::disk('public')->delete($post->thumbnail);
+            $folder = date("Y-m-d");
+            $data['thumbnail'] = $request->file('thumbnail')->store("images/{$folder}", 'public');
+        }
+
+        $post->tags()->sync($request->tags);
+        $post->update($data);
         return redirect()->route('posts.index')->with('success', 'Изменения сохранены');
     }
 
