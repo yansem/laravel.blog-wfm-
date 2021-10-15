@@ -79,6 +79,9 @@
                     </div>
                 </div>
             </div>
+            <div>
+                <img src="{{ $post->getImg() }}" alt="" class="img-thumbnail" width="200">
+            </div>
         </div>
         <!-- /.card-body -->
 
