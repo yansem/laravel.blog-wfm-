@@ -11,6 +11,7 @@ class Post extends Model
     use HasFactory;
     use Sluggable;
 
+    protected $fillable = ['title', 'description', 'content', 'category_id', 'thumbnail'];
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -18,7 +19,7 @@ class Post extends Model
 
     public function tags()
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class)->withTimestamps();
     }
 
     /**

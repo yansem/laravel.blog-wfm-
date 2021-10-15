@@ -33,23 +33,32 @@
                 </div>
                 <div class="form-group">
                     <label for="description">Цитата</label>
-                    <textarea name="description" id="description" class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                    <textarea name="description" id="description" class="form-control @error('description') is-invalid @enderror" rows="5" placeholder="Enter ..."></textarea>
+                    @error('description')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="content">Контент</label>
-                    <textarea name="content" id="content" class="form-control" rows="5" placeholder="Enter ..."></textarea>
+                    <textarea name="content" id="content" class="form-control @error('content') is-invalid @enderror" rows="5" placeholder="Enter ..."></textarea>
+                    @error('content')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label for="category">Категория</label>
-                    <select class="form-control" name="category" id="category">
+                    <label for="category_id">Категория</label>
+                    <select class="form-control @error('category_id') is-invalid @enderror" name="category_id" id="category_id">
                         @foreach($categories as $k => $v)
                             <option value="{{ $k }}">{{ $v }}</option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
-                    <label for="tag">Tags</label>
-                    <select name="tag" id="tag" class="select2" multiple="multiple" data-placeholder="Select a Tag"
+                    <label for="tags">Tags</label>
+                    <select name="tags[]" id="tags" class="select2" multiple="multiple" data-placeholder="Select a Tag"
                             style="width: 100%;">
                         @foreach($tags as $k => $v)
                             <option value="{{ $k }}">{{ $v }}</option>
