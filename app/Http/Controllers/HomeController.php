@@ -15,6 +15,9 @@ class HomeController extends Controller
 
     public function show($slug)
     {
-        return view('home.show');
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $post->views += 1;
+        $post->update();
+        return view('home.show', compact('post'));
     }
 }

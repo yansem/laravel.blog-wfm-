@@ -53,7 +53,7 @@
                     $post->category->title
                     }}</a></small>
                     <small>{{ $post->getDate() }}</small>
-                    <small><i class="fa fa-eye"></i>{{ $post->views }}</small>
+                    <small><i class="fa fa-eye"></i> {{ $post->views }}</small>
                 </div><!-- end meta -->
             </div><!-- end blog-box -->
 
