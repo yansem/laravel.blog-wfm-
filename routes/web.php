@@ -14,7 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/article', 'HomeController@show')->name('home.single');
+Route::get('/article/{slug}', 'HomeController@show')->name('home.single');
+Route::get('/category/{slug}', 'CategoryController@show')->name('category.show');
 
 Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'MainController@index')->name('admin.index');
