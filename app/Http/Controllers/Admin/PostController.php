@@ -89,7 +89,9 @@ class PostController extends Controller
         ]);
         $post = Post::find($id);
         $data = $request->all();
-        $data['thumbnail'] = Post::uploadImg($request, $post->thumbnail);
+        if($file = Post::uploadImg($request, $post->thumbnail)){
+            $data['thumbnail'] = $file;
+        }
         $post->tags()->sync($request->tags);
         $post->update($data);
         return redirect()->route('posts.index')->with('success', 'Изменения сохранены');
