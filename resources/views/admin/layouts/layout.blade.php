@@ -397,6 +397,10 @@
             console.warn( 'Build id: adgzlhnjn028-wla1kijhk1vf' );
             console.error( error );
         } );
+
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+    });
 </script>
 </body>
 </html>
